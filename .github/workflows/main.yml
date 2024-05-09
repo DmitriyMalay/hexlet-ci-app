@@ -1,0 +1,24 @@
+name: CI Workflow
+
+on: [push, pull_request]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        run: npm test
+
+  lint:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run linter
+        run: npm run lint
